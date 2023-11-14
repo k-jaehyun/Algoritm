@@ -5,21 +5,9 @@ class Solution {
         int maxWide =0;
         int maxHeight=0;
 
-        for (int i = 0; i < sizes.length; i++) {
-
-            if (sizes[i][0] < sizes[i][1]) {
-                int temp = sizes[i][1];
-                sizes[i][1] = sizes[i][0];
-                sizes[i][0] = temp;
-            }
-
-            if(maxWide<sizes[i][0]) {
-                maxWide=sizes[i][0];
-            }
-            if (maxHeight<sizes[i][1]) {
-                maxHeight=sizes[i][1];
-            }
-
+        for (int[] s : sizes) {
+            maxWide=Math.max(maxWide,Math.max(s[0],s[1]));
+            maxHeight=Math.max(maxHeight,maxHeight = Math.min(s[0],s[1]));
         }
 
         return answer = maxWide*maxHeight;
