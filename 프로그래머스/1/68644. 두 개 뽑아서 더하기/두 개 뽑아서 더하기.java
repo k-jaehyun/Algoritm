@@ -1,4 +1,5 @@
 import java.util.*;
+
 class Solution {
     public int[] solution(int[] numbers) {
         Set<Integer> set = new HashSet<>();
@@ -8,8 +9,6 @@ class Solution {
                 set.add(numbers[i]+numbers[j]);
             }
         }
-
-//        List<Integer> a = set.stream().sorted().toList();
 
         List<Integer> sumList = new ArrayList<>(set);
 
