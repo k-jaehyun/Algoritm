@@ -18,9 +18,6 @@ class Solution {
             if (powerArray[i]>limit) {
                 powerArray[i]=power;
             }
-        }
-
-        for(int i=0;i<number;i++) {
             answer+=powerArray[i];
         }
         
