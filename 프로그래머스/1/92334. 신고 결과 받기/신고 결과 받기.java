@@ -11,7 +11,7 @@ class Solution {
                 String b = repo[j].split(" ")[1];
 
                 // 비어있다면 put 아니면 더해줌
-                repoMap.computeIfAbsent(a, key -> new ArrayList<>()).add(b);
+                repoMap.computeIfAbsent(a, value -> new ArrayList<>()).add(b);
             }
 
         // 신고내역 확인하며 카운트
