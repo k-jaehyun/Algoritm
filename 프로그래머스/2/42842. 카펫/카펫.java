@@ -5,7 +5,7 @@ class Solution {
         int[] answer = {0,0};
         
         Map<Integer, Integer> wholeMap = new HashMap<>();
-        for (int i = 3; i <= brown + yellow; i++) {
+        for (int i = 3; i <= brown + yellow; i++) {      
             int j = (brown + yellow) / i;
             if (i>=j && i * j == brown + yellow) {
                 wholeMap.put(i, j);
