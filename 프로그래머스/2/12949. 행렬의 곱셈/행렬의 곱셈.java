@@ -1,14 +1,19 @@
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
 class Solution {
     public int[][] solution(int[][] arr1, int[][] arr2) {
-        int[][] answer = new int[arr1.length][arr2[0].length];
-
-        for (int i=0;i<arr1.length;i++) {
-            for (int j=0;j<arr2[0].length;j++) {
-                for (int k = 0; k < arr2.length; k++) {
-                    answer[i][j] += arr1[i][k] * arr2[k][j];
-                }
-            }
-        }
-        return answer;
+        return Arrays.stream(arr1)
+                .map(row ->
+                        IntStream.range(0, arr2[0].length)
+                                .mapToObj(col ->
+                                        IntStream.range(0, arr2.length)
+                                                .map(k -> row[k] * arr2[k][col])
+                                                .sum()
+                                )
+                                .mapToInt(Integer::intValue)
+                                .toArray()
+                )
+                .toArray(int[][]::new);
     }
 }
