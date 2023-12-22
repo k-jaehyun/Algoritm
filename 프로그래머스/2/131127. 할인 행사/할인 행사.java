@@ -19,12 +19,12 @@ class Solution {
                 index++;
             }
         }
-
-        for (int k=0;k<compDays;k++) {
+        
+        for (int k=0;k<compDays;k++) {  // 회원가입 할지 비교
             int cnt = 0;
-            String[] copy = wantAll.clone();
-            for (int i = k; i < k+sumNum; i++) {
-                for (int j = 0; j < copy.length; j++) {
+            String[] copy = wantAll.clone();  // 같으면 ""로 바꿔주면서 비교하려고 깊은복사 
+            for (int i = k; i < k+sumNum; i++) {   // discount와 비교, 시작 위치
+                for (int j = 0; j < copy.length; j++) {  // 원하는 물품인지 비교
                     if (discount[i].equals(copy[j])) {
                         copy[j] = "";
                         cnt++;
@@ -32,7 +32,7 @@ class Solution {
                     }
                 }
             }
-            if (cnt==sumNum) answer++;
+            if (cnt==sumNum) answer++;  
         }
         
         return answer;
