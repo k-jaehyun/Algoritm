@@ -34,14 +34,6 @@ class Solution {
         }
 
         // temp에서 0 제거
-        List<Integer> list = new ArrayList<>();
-        Arrays.stream(temp).forEach(a -> {
-            if (a!=0) {
-                list.add(a);
-            }
-        });
-        
-        int[] answer = list.stream().mapToInt(Integer::intValue).toArray();
-        return answer;
+        return Arrays.stream(temp).filter(a-> a!=0).toArray();
     }
 }
