@@ -5,8 +5,6 @@ class Solution {
         int answer = 0;
         
         int max=0;
-        int cnt=0;
-        int index=0;
         
         Map<Integer,Integer> map = new HashMap<>();
         
@@ -15,12 +13,11 @@ class Solution {
             if (map.get(array[i]) > max) {
                 max=map.get(array[i]);
                 answer=array[i];
-                index = 0;
             } else if(map.get(array[i]) == max) {
-                index = -1;
+                answer = -1;
             }
         }
         
-        return index == -1? index:answer;
+        return answer;
     }
 }
