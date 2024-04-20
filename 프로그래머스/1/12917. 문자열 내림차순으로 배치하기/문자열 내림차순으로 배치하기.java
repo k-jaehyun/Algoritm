@@ -1,13 +1,16 @@
 import java.util.*;
-import java.util.stream.Collectors;
-
 
 class Solution {
     public String solution(String s) {
         String answer = "";
-    answer = Arrays.stream(s.split("")).map(a->a.charAt(0)).sorted(Comparator.reverseOrder()).map(a->a+"").collect(Collectors.joining());
 
-
+        char[] charArr = s.toCharArray();
+        Arrays.sort(charArr);
+        
+        for(int i=0;i<s.length();i++) {
+            answer+=charArr[s.length()-i-1];
+        }
+        
         
         return answer;
     }
