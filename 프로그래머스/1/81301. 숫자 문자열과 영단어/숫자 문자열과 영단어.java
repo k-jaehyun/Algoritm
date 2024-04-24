@@ -1,49 +1,20 @@
 class Solution {
     public int solution(String s) {
         int answer = 0;
-        String tmp="";
-
-        do {
-            if ('0' <= s.charAt(0) && s.charAt(0) <= '9') {
-                tmp += s.charAt(0);
-                s=s.substring(1);
-            } else if (-1 != s.indexOf("one") && s.indexOf("one") <2 ) {
-                tmp += "1";
-                s= s.substring(3);
-            } else if (-1 != s.indexOf("two") && s.indexOf("two") <2) {
-                tmp += "2";
-                s= s.substring(3);
-            } else if (-1 != s.indexOf("three") && s.indexOf("three")<2) {
-                tmp += "3";
-                s= s.substring(5);
-            } else if (-1 != s.indexOf("four") && s.indexOf("four")<2) {
-                tmp += "4";
-                s= s.substring(4);
-            } else if (-1 != s.indexOf("five") && s.indexOf("five")<2) {
-                tmp += "5";
-                s= s.substring(4);
-            } else if (-1 != s.indexOf("six") && s.indexOf("six")<2) {
-                tmp += "6";
-                s= s.substring(3);
-            } else if (-1 != s.indexOf("seven") && s.indexOf("seven")<2) {
-                tmp += "7";
-                s= s.substring(5);
-            } else if (-1 != s.indexOf("eight") && s.indexOf("eight")<2) {
-                tmp += "8";
-                s= s.substring(5);
-            } else if (-1 != s.indexOf("nine") && s.indexOf("nine")<2) {
-                tmp += "9";
-                s= s.substring(4);
-            } else if (-1 != s.indexOf("zero") && s.indexOf("zero")<2) {
-                tmp += "0";
-                s= s.substring(4);
-            }
-        } while (0<s.length());
-
-
-        answer=Integer.valueOf(tmp);
-
-
+        
+        if(s.contains("one")) s=s.replace("one","1");
+        if(s.contains("two")) s=s.replace("two","2");
+        if(s.contains("three")) s=s.replace("three","3");
+        if(s.contains("four")) s=s.replace("four","4");
+        if(s.contains("five")) s=s.replace("five","5");
+        if(s.contains("six")) s=s.replace("six","6");
+        if(s.contains("seven")) s=s.replace("seven","7");
+        if(s.contains("eight")) s=s.replace("eight","8");
+        if(s.contains("nine")) s=s.replace("nine","9");
+        if(s.contains("zero")) s=s.replace("zero","0");
+        
+        answer = Integer.valueOf(s);
+        
         return answer;
     }
 }
