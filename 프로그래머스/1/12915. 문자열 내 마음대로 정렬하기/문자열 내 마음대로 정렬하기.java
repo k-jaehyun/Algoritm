@@ -1,9 +1,19 @@
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
 
 class Solution {
     public String[] solution(String[] strings, int n) {
-        Arrays.sort(strings, Comparator.<String, Character>comparing(s -> s.charAt(n)).thenComparing(Comparator.naturalOrder()));
-        return strings;
+        String[] answer = new String[strings.length];
+        
+        for(int i=0;i<strings.length;i++) {
+            answer[i] = strings[i].charAt(n) + strings[i];
+        }        
+        
+        Arrays.sort(answer);
+        
+        for(int i=0;i<answer.length;i++) {
+            answer[i] = answer[i].substring(1);
+        }
+        
+        return answer;
     }
 }
