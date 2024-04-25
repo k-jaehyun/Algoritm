@@ -1,17 +1,20 @@
+import java.util.*;
+
 class Solution {
     public int[] solution(String s) {
         int[] answer = new int[s.length()];
+        
+        Map<Character, Integer> map = new HashMap<>();
         for(int i=0;i<s.length();i++) {
-            answer[i]=-1;
-        }
-
-        for (int i=0;i<s.length();i++) {
-            for (int j=i+1; j<s.length();j++) {
-                if (s.charAt(i) == s.charAt(j)) {
-                    answer[j]=j-i;
-                }
+            if(map.get(s.charAt(i)) == null) {
+                answer[i] = -1;
+                map.put(s.charAt(i), i);
+            } else {
+                answer[i] = i - map.get(s.charAt(i));
+                map.put(s.charAt(i), i);
             }
         }
+        
         return answer;
     }
 }
