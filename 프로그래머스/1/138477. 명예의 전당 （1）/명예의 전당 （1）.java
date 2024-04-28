@@ -3,16 +3,19 @@ import java.util.*;
 class Solution {
     public int[] solution(int k, int[] score) {
         int[] answer = new int[score.length];
-
-        List<Integer> array = new ArrayList<>();
-
-        for (int i=0;i< score.length;i++) {
-            array.add(score[i]);
-            Collections.sort(array);
-            if(array.size()>k) {
-                array.remove(0);
+        
+        for(int i=0;i<score.length;i++) {
+            int[] tmp = new int[i+1];
+            for(int j=0;j<=i;j++) {
+                tmp[j] = score[j];
             }
-            answer[i]=array.get(0);
+            Arrays.sort(tmp);
+            
+            if(i<k) {
+                answer[i] = tmp[0];
+            } else {
+                answer[i] = tmp[i-k+1];   
+            }
         }
         
         return answer;
