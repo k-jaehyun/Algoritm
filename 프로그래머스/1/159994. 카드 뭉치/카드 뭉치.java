@@ -2,25 +2,28 @@ import java.util.*;
 
 class Solution {
     public String solution(String[] cards1, String[] cards2, String[] goal) {
-        String answer = "Yes";
-
-        List<String> arr1 = new ArrayList<>(Arrays.asList(cards1));
-        List<String> arr2 = new ArrayList<>(Arrays.asList(cards2));
-        List<String> goalArr = new ArrayList<>(Arrays.asList(goal));
-
-
-        for (String s : goalArr) {
-            if(!arr1.isEmpty() && arr1.get(0).equals(s)) {
-                arr1.remove(0);
-                continue;
-            } else if (!arr2.isEmpty() && arr2.get(0).equals(s)) {
-                arr2.remove(0);
-                continue;
+        String answer = "";
+        
+        List<String> cards1List = new ArrayList<>();
+        List<String> cards2List = new ArrayList<>();
+        
+        for(int i=0;i<cards1.length;i++) {
+            cards1List.add(cards1[i]);
+        }
+        for(int i=0;i<cards2.length;i++) {
+            cards2List.add(cards2[i]);
+        }        
+        
+        for(int i=0;i<goal.length;i++) {
+            if(cards1List.indexOf(goal[i])==0) {
+                cards1List.remove(0);
+            } else if(cards2List.indexOf(goal[i])==0) {
+                cards2List.remove(0);
             } else {
-                answer ="No";
-                break;
+                return "No";
             }
         }
-        return answer;
+        
+        return "Yes";
     }
 }
