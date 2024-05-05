@@ -1,20 +1,22 @@
 class Solution {
     public int solution(String[] babbling) {
         int answer = 0;
-
-        for (String s : babbling) {
-            if (s.contains("ayaaya") || s.contains("yeye") || s.contains("woowoo") || s.contains("mama")) {
+        
+        loof1: for(int i=0;i<babbling.length;i++) {
+            if(babbling[i].contains("ayaaya")||babbling[i].contains("yeye")||babbling[i].contains("woowoo")||babbling[i].contains("mama")) {
                 continue;
-            } else {
-                if (s.contains("aya")) s = s.replace("aya", " ");
-                if (s.contains("ye")) s = s.replace("ye", " ");
-                if (s.contains("woo")) s = s.replace("woo", " ");
-                if (s.contains("ma")) s = s.replace("ma", " ");
-                if (s.contains(" ")) s = s.replace(" ", "");
-                if (s.length() == 0) {
-                    answer++;
+            }
+                babbling[i]=babbling[i].replace("aya", " ");
+                babbling[i]=babbling[i].replace("ye", " ");
+                babbling[i]=babbling[i].replace("woo", " ");
+                babbling[i]=babbling[i].replace("ma", " ");
+            String[] tmp = babbling[i].split("");
+            for(int j=0;j<tmp.length;j++) {
+                if(!tmp[j].equals(" ")) {
+                    continue loof1;
                 }
             }
+            answer++;
         }
         
         return answer;
