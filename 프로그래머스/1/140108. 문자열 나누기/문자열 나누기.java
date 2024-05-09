@@ -2,29 +2,29 @@ class Solution {
     public int solution(String s) {
         int answer = 0;
         
-        char initChar = s.charAt(0);
-        int repeatCnt=0;
-        int isFinalCnt=0;
-
-        for (int i=0;i<s.length();i++) {
-            if (s.charAt(i)==initChar) {
-                isFinalCnt++;
-                repeatCnt++;
-                if (isFinalCnt==s.length()){
-                    answer++;
-                }
+        char tmp = '0';
+        int cntTmp = 0;
+        int cnt = 0;
+        
+        for(char c : s.toCharArray()) {
+            if(tmp=='0') {
+                tmp=c;
+                cntTmp++;
+            } else if(tmp==c) {
+                cntTmp++;
             } else {
-                isFinalCnt++;
-                repeatCnt--;
-                if (repeatCnt==0) {
-                    answer++;
-                    if(i+1<s.length()) {
-                        initChar=s.charAt(i+1);
-                    }
-                } else if (isFinalCnt==s.length()) answer++;
+                cnt++;
+            }
+            if(cnt==cntTmp) {
+                tmp='0';
+                cnt=0;
+                cntTmp=0;
+                answer++;
             }
         }
-        
+        if(tmp!='0') {
+            answer++;
+        }
         return answer;
     }
 }
