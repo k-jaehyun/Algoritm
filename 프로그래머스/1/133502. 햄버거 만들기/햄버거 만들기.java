@@ -1,3 +1,5 @@
+import java.util.*;
+
 class Solution {
     public int solution(int[] ingredient) {
         int answer = 0;
@@ -17,8 +19,6 @@ class Solution {
                 }
             }
         }
-
-
         
         return answer;
     }
