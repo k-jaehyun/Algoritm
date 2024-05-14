@@ -1,47 +1,46 @@
 class Solution {
     public int[] solution(String[] wallpaper) {
-        int lux=0;
-        int luy=-1;
-        int rdx=0;
-        int rdy=0;
-
-        int minluy=0;
-        int maxrdy;
-
-        for (int i=0;i<wallpaper.length;i++) {
-            if (wallpaper[i].contains("#")) {
-                lux=i;
+        int[] answer = {0,0,0,0};
+        
+        // 맨 윗 점 lux
+        for(int i=0;i<wallpaper.length;i++) {
+            if(wallpaper[i].contains("#")) {
+                answer[0]=i;
                 break;
             }
         }
-
-        for (int i=0;i<wallpaper.length;i++) {
-            if (wallpaper[i].contains("#")) {
-                if (luy==-1) {
-                    minluy = wallpaper[i].indexOf("#");
-                    luy = wallpaper[i].indexOf("#");
-                } else {
-                    luy=wallpaper[i].indexOf("#");
-                    if (minluy>luy) minluy=luy;
+        
+        // 맨 왼쪽 점 luy
+        int minX=Integer.MAX_VALUE;
+        for(int i=0;i<wallpaper.length;i++) {
+            for(int j=0;j<wallpaper[i].length();j++) {
+                if(wallpaper[i].charAt(j)=='#' && minX>j) {
+                    minX=j;
                 }
             }
         }
-
-        for (int i=0;i<wallpaper.length;i++) {
-            if (wallpaper[i].contains("#")) {
-                rdx=i+1;
+        answer[1]=minX;
+        
+        // 맨 아래쪽 점 rdx
+        int maxY=0;
+        for(int i=0;i<wallpaper.length;i++) {
+            if(wallpaper[i].contains("#") && maxY<i) {
+                maxY=i;
             }
         }
-
-        for (int i=0;i<wallpaper.length;i++) {
-            if (wallpaper[i].contains("#")) {
-                maxrdy=wallpaper[i].lastIndexOf("#");
-                if (maxrdy>rdy) rdy=maxrdy;
+        answer[2]=maxY+1;
+        
+        // 맨 뒤쪽 점 rdy
+        int maxX=0;
+        for(int i=0;i<wallpaper.length;i++) {
+            for(int j=0;j<wallpaper[i].length();j++) {
+                if(wallpaper[i].charAt(j)=='#' && maxX<j) {
+                    maxX=j;
+                }
             }
         }
-
-        int[] answer = {lux,minluy,rdx,rdy+1};
-
+        answer[3]=maxX+1;
+        
         return answer;
     }
 }
