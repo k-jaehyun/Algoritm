@@ -1,57 +1,26 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class Solution {
-
+class Solution {
     public int[] solution(String today, String[] terms, String[] privacies) {
-        List<Integer> result = new ArrayList<>();
-
-        int yearT = Integer.parseInt(today.substring(0, 4));
-        int monthT = Integer.parseInt(today.substring(5, 7));
-        int dayT = Integer.parseInt(today.substring(8, 10));
-
+        int[] result = new int[privacies.length];
+        
         for (int i = 0; i < privacies.length; i++) {
-            String privacy = privacies[i];
-            int privacyIndex = i + 1;
-
-            for (String term : terms) {
-                char termType = term.charAt(0);
-                if (termType == privacy.charAt(11)) {
-                    int year = Integer.parseInt(privacy.substring(0, 4));
-                    int month = Integer.parseInt(privacy.substring(5, 7));
-                    int day = Integer.parseInt(privacy.substring(8, 10));
-
-                    // 약관 종료일 계산
-                    day = day - 1;
-                    if (day == 0) {
-                        month = month - 1;
-                        day = 28;
-                    }
-
-                    month = month + Integer.parseInt(term.substring(2));
-
-                    while (month > 12) {
-                        year = year + 1;
-                        month = month - 12;
-                    }
-
-                    // 날짜 비교 및 폐기
-                    if (yearT > year || (year == yearT && monthT > month) || (year == yearT && month == monthT && dayT > day)) {
-                        result.add(privacyIndex);
-                    }
+            int dayPri = Integer.valueOf(privacies[i].substring(0, 4))*12*28 + Integer.valueOf(privacies[i].substring(5, 7))*28 + Integer.valueOf(privacies[i].substring(8, 10));
+            for (String s : terms) {
+                if (s.charAt(0) == privacies[i].charAt(11)) {
+                    result[i] = Integer.valueOf(s.substring(2))*28 + dayPri-1;
                 }
             }
         }
-
-        return result.stream().mapToInt(Integer::intValue).toArray();
-    }
-
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        String today = "2022.05.19";
-        String[] terms = {"A 6", "B 12", "C 3"};
-        String[] privacies = {"2021.05.02 A", "2021.07.01 B", "2022.02.19 C", "2022.02.20 C"};
-        int[] result = solution.solution(today, terms, privacies);
-        System.out.println(java.util.Arrays.toString(result)); // [1, 3]
+        
+        int intToday = Integer.valueOf(today.substring(0, 4))*12*28 + Integer.valueOf(today.substring(5, 7))*28 + Integer.valueOf(today.substring(8, 10));
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < privacies.length; i++) {
+            if (intToday > result[i]) {
+                list.add(i + 1);
+            }
+        }
+        
+        return list.stream().mapToInt(Integer::intValue).toArray();
     }
 }
