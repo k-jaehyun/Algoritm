@@ -1,25 +1,24 @@
-import java.util.*;
+import java.util.HashMap;
 
-class Solution {
+public class Solution {
     public String[] solution(String[] players, String[] callings) {
-        // 플레이어 랭킹을 맵으로 만듦
-        Map<String, Integer> playerRankingMap = new HashMap<>();
-        for (int i=0;i< players.length;i++) {
-            playerRankingMap.put(players[i], i+1);
+        int n = players.length;
+        HashMap<String, Integer> indexMap = new HashMap<>();
+
+        for (int i = 0; i < n; i++) {
+            indexMap.put(players[i], i);
         }
 
-        // 이름 부르면 랭킹을 바꿈
         for (String calling : callings) {
-            int calledPlayerRanking = playerRankingMap.get(calling);
-            String frontPlayer = players[calledPlayerRanking-2];
+            int idx = indexMap.get(calling);
+            if (idx > 0) {
+                String temp = players[idx - 1];
+                players[idx - 1] = players[idx];
+                players[idx] = temp;
 
-            // map의 랭킹을 바꿈
-            playerRankingMap.replace(frontPlayer,calledPlayerRanking);
-            playerRankingMap.replace(calling,calledPlayerRanking-1);
-
-            // players 배열의 순서를 바꿈
-            players[calledPlayerRanking-2]=players[calledPlayerRanking-1];
-            players[calledPlayerRanking-1]=frontPlayer;
+                indexMap.put(players[idx - 1], idx - 1);
+                indexMap.put(players[idx], idx);
+            }
         }
 
         return players;
