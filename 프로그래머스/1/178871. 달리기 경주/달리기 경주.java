@@ -1,26 +1,32 @@
-import java.util.HashMap;
+import java.util.*;
 
-public class Solution {
+class Solution {
     public String[] solution(String[] players, String[] callings) {
-        int n = players.length;
-        HashMap<String, Integer> indexMap = new HashMap<>();
-
-        for (int i = 0; i < n; i++) {
-            indexMap.put(players[i], i);
+        
+        Map<String, Integer> pNum = new HashMap<>();
+        Map<Integer, String> numP = new HashMap<>();
+        for(int i=0;i<players.length;i++) {
+            pNum.put(players[i],i);
+            numP.put(i,players[i]);
         }
-
-        for (String calling : callings) {
-            int idx = indexMap.get(calling);
-            if (idx > 0) {
-                String temp = players[idx - 1];
-                players[idx - 1] = players[idx];
-                players[idx] = temp;
-
-                indexMap.put(players[idx - 1], idx - 1);
-                indexMap.put(players[idx], idx);
-            }
+        
+        for(String call : callings) {
+            Integer callNum = pNum.get(call);
+            String prePlayer = numP.get(callNum-1);
+            
+            pNum.put(prePlayer, callNum);
+            pNum.put(call, callNum-1);
+            numP.put(callNum, prePlayer);
+            numP.put(callNum-1, call);
         }
-
-        return players;
+        
+        String[] answer = new String[players.length];
+        
+        for(int i=0;i<numP.size();i++) {
+            answer[i]=numP.get(i);
+        }
+        
+        
+        return answer;
     }
 }
