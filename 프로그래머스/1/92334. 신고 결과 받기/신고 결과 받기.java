@@ -1,49 +1,34 @@
 import java.util.*;
+
 class Solution {
     public int[] solution(String[] id_list, String[] report, int k) {
-        // 동일한 신고내역 제거
-        String[] repo = Arrays.stream(report).distinct().toArray(String[]::new);
+        
+        int[] answer = new int[id_list.length];
 
-        // 맵에 신고자-신고내역 으로 저장
-        Map<String, List<String>> repoMap = new HashMap<>();
-            for (int j = 0; j < repo.length; j++) {
-                String a = repo[j].split(" ")[0];
-                String b = repo[j].split(" ")[1];
-
-                // 비어있다면 put 아니면 더해줌
-                repoMap.computeIfAbsent(a, value -> new ArrayList<>()).add(b);
+        Map<String, Set<String>> id_report = new HashMap<>();
+        for(String id : id_list) {
+            id_report.put(id,new HashSet<>());
+        }
+        for(String repo : report) {
+            String[] str = repo.split(" ");
+            id_report.get(str[0]).add(str[1]);
+        }
+        
+        Map<String, Integer> reportedNum = new HashMap<>();
+        for(int i=0;i<id_list.length;i++) {
+            for(String s : id_report.get(id_list[i])) {
+                    reportedNum.put(s,reportedNum.getOrDefault(s,0)+1);
             }
-
-        // 신고내역 확인하며 카운트
-        Map<String, Integer> countMap = new HashMap<>();
-        for (Map.Entry<String, List<String>> entry : repoMap.entrySet()) {
-            entry.getValue().stream().forEach(a -> {
-                if (countMap.get(a) == null) {
-                    countMap.put(a, 1);
-                } else {
-                    countMap.put(a, countMap.get(a) + 1);
+        }
+        
+        for(int i=0;i<id_list.length;i++) {
+            for(String s : id_report.get(id_list[i])) {
+                if(reportedNum.get(s) >= k) {
+                    answer[i]++;
                 }
-            });
-        }
-
-        // id_list의 이름으로 신고한 사람 중 카운트가 k이상인 것의 개수만큼 ++
-        int[] result=new int[id_list.length];
-
-        int i=0;
-        for (String s : id_list) {
-            List<String> stringList = repoMap.getOrDefault(s,null);
-
-            if (stringList!=null) {
-                int finalI = i;
-                stringList.stream().forEach(a-> {
-                    if (countMap.get(a)>=k) {
-                        result[finalI]++;
-                    }
-                });
             }
-            i++;
         }
-
-        return result;
+        
+        return answer;
     }
 }
