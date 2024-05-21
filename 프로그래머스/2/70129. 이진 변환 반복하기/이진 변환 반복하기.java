@@ -1,30 +1,34 @@
-import java.util.Arrays;
-
 class Solution {
     public int[] solution(String s) {
         int[] answer = {0,0};
-
-        final String[] strArr = {s};
-
-        int excuCnt=0;
-        final int[] zeroCnt = {0};
-
-        while (!strArr[0].equals("1")) {
-            excuCnt++;
-
-            String[] tempstr={""};
-
-            Arrays.stream(strArr[0].split("")).forEach(a -> {
-                if (a.equals("0")) { zeroCnt[0]++; }
-                else { tempstr[0] += "1"; }
-            });
-
-            strArr[0] = Integer.toBinaryString(tempstr[0].length());
+        
+        while(!s.equals("1")) {
+            answer[0]++;
+            int oneCnt = 0;
+            String[] strArr = s.split("");
+            for(String str : strArr) {
+                if(str.equals("0")) {
+                    answer[1]++;
+                } else {
+                    oneCnt++;
+                }
+            }
+            
+            String tmp = "";
+            while(oneCnt!=0) {
+                if(oneCnt>1) {
+                    tmp = oneCnt%2 +tmp;
+                    oneCnt/=2;
+                } else if(oneCnt==1) {
+                    tmp = oneCnt+tmp;
+                    oneCnt=0;
+                }
+            }
+            s=tmp;
         }
         
-        answer[0]=excuCnt;
-        answer[1]=zeroCnt[0];
-
+        
+        
         return answer;
     }
 }
