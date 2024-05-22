@@ -4,14 +4,24 @@ class Solution
     {
         int answer = 0;
 
-        while (a!=b) {
-            if (a % 2 == 1) a += 1;
-            if (b % 2 == 1) b += 1;
+        while(a!=b) {
+        
+                answer++;
+                
+                if(a%2>0) {
+                    a=(a/2)+1;
+                } else {
+                    a=a/2;
+                }
+
+                if(b%2>0) {
+                    b=(b/2)+1;
+                } else {
+                    b=b/2;
+                }
             
-            a/=2;
-            b/=2;
-            answer+=1;
         }
+        
         return answer;
     }
 }
