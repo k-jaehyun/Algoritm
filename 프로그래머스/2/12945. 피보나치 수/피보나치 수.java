@@ -1,18 +1,14 @@
 class Solution {
     public int solution(int n) {
-        int answer = 0;
         
-        long[] longs = new long[n+1];
-
-        longs[0]=0;
-        longs[1]=1;
-
-        for (int i=2;i< longs.length;i++) {
-            longs[i]=(longs[i-1]+longs[i-2])%1234567;
+        int[] arr = new int[n+1];
+        arr[0]=0;
+        arr[1]=1;
+        for(int i=2;i<n+1;i++) {
+            arr[i]=(arr[i-1]+arr[i-2])%1234567;
         }
-
-        answer=(int) (longs[n]%1234567);
         
+        int answer = arr[n];
         return answer;
     }
 }
