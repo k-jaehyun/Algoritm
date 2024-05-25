@@ -1,33 +1,29 @@
-import java.util.Stack;
-
 class Solution {
     public int solution(String s) {
         int answer = 0;
-
-        for (int j=0;j<s.length();j++) {
-
-            Stack<Character> stack = new Stack<>();
-
-            for (int i = 0; i < s.length(); i++) {
-                char c = s.charAt(i);
-
-                if (stack.isEmpty()) {
-                    stack.push(c);
-                } else if (stack.peek() == '(' && c == ')') {
-                    stack.pop();
-                } else if (stack.peek() == '{' && c == '}') {
-                    stack.pop();
-                } else if (stack.peek() == '[' && c == ']') {
-                    stack.pop();
+        
+        for(int i=0;i<s.length();i++) {
+            
+            String tmp = s;
+            boolean index=true;
+            while(index) {
+                if(tmp.contains("()") || tmp.contains("[]") || tmp.contains("{}")) {
+                    tmp=tmp.replace("()","");
+                    tmp=tmp.replace("{}","");
+                    tmp=tmp.replace("[]","");
                 } else {
-                    stack.push(c);
+                    index=false;
                 }
             }
-            if (stack.isEmpty()) answer++;
-
-            s=s.substring(1)+s.charAt(0);
+            
+            if(tmp.length()==0) answer++;
+            
+            StringBuilder builder = new StringBuilder();
+            builder.append(s.substring(1));
+            builder.append(s.substring(0,1));
+            s=builder.toString();
         }
-
+        
         return answer;
     }
 }
