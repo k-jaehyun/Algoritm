@@ -1,17 +1,15 @@
 class Solution {
     public int[] solution(int n, long left, long right) {
+        int len = (int) (right-left+1);
         
-        int[] answer = new int[(int) (right-left+1)];
+        int[] answer = new int[len];
 
-        int index=0;
-        for (long i=left;i<=right;i++) {
-            int a = (int)(i/n)+1;
-            int b = (int)(i%n)+1;
-            answer[index]=Math.max(a,b);
-            index++;
+        for(int i=0;i<len;i++) {
+            // x%n : 열
+            // x/n +1 : 행
+            answer[i]= (int) Math.max((left+i)%n+1, (left+i)/n+1);
         }
-
-
+        
         return answer;
     }
 }
