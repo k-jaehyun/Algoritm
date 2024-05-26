@@ -1,15 +1,16 @@
-import java.util.Arrays;
 class Solution {
     public int solution(int[] citations) {
         int answer = 0;
         
-        Arrays.sort(citations);
-        
-        for (int rank=citations.length;rank>0;rank--) {
-            if (rank<=citations[citations.length-rank]) {
-                answer=rank;
-                break;
+        for(int i=0;i<citations.length;i++) {
+            int index=0;
+            for(int j=0;j<citations.length;j++) {
+                if(citations[i]<=citations[j]) {
+                    index++;
+                }
             }
+            index=Math.min(citations[i],index);
+            answer=Math.max(answer,index);
         }
         
         return answer;
