@@ -2,56 +2,75 @@ import java.util.*;
 
 class Solution {
     public String[] solution(String[][] plans) {
-        LinkedList<Task> tasks = new LinkedList<>();
+        LinkedList<Homework> list = new LinkedList<>();
         for (String[] plan : plans) {
-            tasks.offer(new Task(plan[0], convertToMinute(plan[1]), Integer.parseInt(plan[2])));
+            list.add(new Homework(plan[0], convert(plan[1]), Integer.parseInt(plan[2])));
         }
-        tasks.sort((t1, t2) -> t1.start - t2.start); // (1)
 
-        Stack<Task> stopTasks = new Stack<>();
-        List<String> endTasks = new ArrayList<>();
-        Task now = tasks.poll();
-        int time = now.start;
-        while (!tasks.isEmpty()) {
-            time += now.left;
-            Task next = tasks.peek();
+        list.sort((h1, h2) -> h1.start - h2.start);
 
-            if (time > next.start) { // (2)
-                now.left = time - next.start;
-                stopTasks.push(now);
-            } else { // (3)
-                endTasks.add(now.name);
-                if (!stopTasks.empty()) { // (4)
-                    now = stopTasks.pop();
-                    continue;
+        Stack<Homework> stack = new Stack<>();
+        ArrayList<String> end = new ArrayList<>();
+
+        while (!list.isEmpty()) {
+            Homework h = list.poll();
+
+            if (!list.isEmpty() && h.start + h.playtime > list.get(0).start) {
+                h.playtime -= list.get(0).start - h.start;
+                stack.push(h);
+            } else {
+                end.add(h.name);
+
+                if (!list.isEmpty()) {
+                    int time = list.get(0).start - h.start - h.playtime;
+
+                    while (time > 0 && !stack.isEmpty()) {
+                        Homework homework = stack.pop();
+
+                        if (homework.playtime > time) {
+                            homework.playtime -= time;
+                            time = 0;
+                            stack.push(homework);
+                        } else {
+                            time -= homework.playtime;
+                            end.add(homework.name);
+                        }
+                    }
                 }
             }
-            now = tasks.poll();
-            time = now.start;
         }
 
-        endTasks.add(now.name); // (5)
-        while (!stopTasks.empty()) { // (6)
-            endTasks.add(stopTasks.pop().name);
+        while (!stack.isEmpty()) {
+            end.add(stack.pop().name);
         }
 
-        return endTasks.toArray(new String[0]);
+        String[] answer = new String[plans.length];
+
+        for (int i = 0; i < end.size(); i++) {
+            answer[i] = end.get(i);
+        }
+
+        return answer;
     }
 
-    private int convertToMinute(String time) {
-        String[] t = time.split(":");
-        return Integer.parseInt(t[0]) * 60 + Integer.parseInt(t[1]);
+    private static int convert(String time) {
+        String[] split = time.split(":");
+        return Integer.parseInt(split[0]) * 60 + Integer.parseInt(split[1]);
     }
 
-    class Task {
+    static class Homework {
         String name;
         int start;
-        int left;
+        int playtime;
 
-        Task(String name, int start, int left) {
+        Homework(String name, int start, int playtime) {
             this.name = name;
             this.start = start;
-            this.left = left;
+            this.playtime = playtime;
+        }
+
+        public String toString() {
+            return name + " " + playtime;
         }
     }
 }
