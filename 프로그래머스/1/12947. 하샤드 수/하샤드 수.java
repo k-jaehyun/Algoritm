@@ -2,18 +2,18 @@ import java.util.*;
 
 class Solution {
     public boolean solution(int x) {
-        boolean answer = true;
-
-        String[] xStrArr = String.valueOf(x).split("");
+        boolean answer = false;
+        
+        List<Integer> intList = new ArrayList();
+        
+        Arrays.stream(String.valueOf(x).split("")).forEach(a -> intList.add(Integer.parseInt(a)));
         
         int sum = 0;
-        for(String a : xStrArr) {
-            sum+=Integer.parseInt(a);
+        for(int i=0;i<intList.size();i++) {
+            sum+=intList.get(i);
         }
         
-        if(x%sum != 0) {
-            answer = false;
-        }
+        if(x%sum == 0) answer = true;
         
         return answer;
     }
