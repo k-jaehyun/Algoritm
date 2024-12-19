@@ -1,7 +1,7 @@
 class Solution {
     public int solution(String s) {
-        int answer = 0;
         
+        if(s.contains("zero")) s=s.replace("zero","0");
         if(s.contains("one")) s=s.replace("one","1");
         if(s.contains("two")) s=s.replace("two","2");
         if(s.contains("three")) s=s.replace("three","3");
@@ -11,10 +11,7 @@ class Solution {
         if(s.contains("seven")) s=s.replace("seven","7");
         if(s.contains("eight")) s=s.replace("eight","8");
         if(s.contains("nine")) s=s.replace("nine","9");
-        if(s.contains("zero")) s=s.replace("zero","0");
         
-        answer = Integer.valueOf(s);
-        
-        return answer;
+        return Integer.parseInt(s);
     }
 }
