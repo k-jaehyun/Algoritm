@@ -2,18 +2,13 @@ import java.util.*;
 
 class Solution {
     public String[] solution(String[] strings, int n) {
-        String[] answer = new String[strings.length];
         
-        for(int i=0;i<strings.length;i++) {
-            answer[i] = strings[i].charAt(n) + strings[i];
-        }        
-        
-        Arrays.sort(answer);
-        
-        for(int i=0;i<answer.length;i++) {
-            answer[i] = answer[i].substring(1);
-        }
-        
-        return answer;
+        return Arrays.stream(strings).sorted((a,b) -> {
+            if(a.charAt(n) == b.charAt(n)) {
+                return a.compareTo(b);
+            }
+            return Character.compare(a.charAt(n), b.charAt(n));
+        }).toArray(String[]::new);
+
     }
 }
