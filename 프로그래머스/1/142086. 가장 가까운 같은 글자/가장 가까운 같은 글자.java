@@ -5,14 +5,15 @@ class Solution {
         int[] answer = new int[s.length()];
         
         Map<Character, Integer> map = new HashMap<>();
+        int index=0;
         for(int i=0;i<s.length();i++) {
-            if(map.get(s.charAt(i)) == null) {
+            int tmp = map.getOrDefault(s.charAt(i),-1);
+            if(tmp==-1) {
                 answer[i] = -1;
-                map.put(s.charAt(i), i);
             } else {
-                answer[i] = i - map.get(s.charAt(i));
-                map.put(s.charAt(i), i);
+                answer[i] = i-tmp;
             }
+            map.put(s.charAt(i), i);
         }
         
         return answer;
