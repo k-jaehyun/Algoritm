@@ -4,18 +4,15 @@ class Solution {
     public int[] solution(int k, int[] score) {
         int[] answer = new int[score.length];
         
+        List<Integer> list = new ArrayList<>();
+        
         for(int i=0;i<score.length;i++) {
-            int[] tmp = new int[i+1];
-            for(int j=0;j<=i;j++) {
-                tmp[j] = score[j];
+            list.add(score[i]);
+            Collections.sort(list);
+            if(list.size() > k) {
+                list.remove(0);
             }
-            Arrays.sort(tmp);
-            
-            if(i<k) {
-                answer[i] = tmp[0];
-            } else {
-                answer[i] = tmp[i-k+1];   
-            }
+            answer[i] = list.get(0);
         }
         
         return answer;
