@@ -2,43 +2,34 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] answers) {
-        int a=0;
-        int b=0;
-        int c=0;
-
-        int[] arrA={1,2,3,4,5};
-        int[] arrB={2,1,2,3,2,4,2,5};
-        int[] arrC={3,3,1,1,2,2,4,4,5,5};
-
+        int[] answer = {};
+        
+        int[] s1 = {1,2,3,4,5};
+        int[] s2 = {2,1,2,3,2,4,2,5};
+        int[] s3 = {3,3,1,1,2,2,4,4,5,5};
+        
+        int n1=0;
+        int n2=0;
+        int n3=0;
+        
         for(int i=0;i<answers.length;i++) {
-            if(answers[i]==arrA[i%5]) {
-                a++;
-            }
-            if (answers[i]==arrB[i%8]) {
-                b++;
-            }
-            if (answers[i]==arrC[i%10]) {
-                c++;
-            }
+            if(s1[i%5]==answers[i]) n1++;
+            if(s2[i%8]==answers[i]) n2++;
+            if(s3[i%10]==answers[i]) n3++;
         }
-
-        int[] arr = {a,b,c};
+        
+        int[] numArr = {n1,n2,n3};
+        
         int max=0;
-        for(int i=0;i<3;i++) {
-            if(max<=arr[i]) {max=arr[i];}
+        for(int i=0;i<numArr.length;i++) {
+            if(numArr[i]>max) max=numArr[i];
         }
-
-        List<Integer> arrList = new ArrayList<>();
-
-        for (int i=0;i<arr.length;i++) {
-            if (max==arr[i]) { arrList.add(i+1);}
+        
+        List<Integer> list = new ArrayList<>();
+        for(int i=0;i<numArr.length;i++) {
+            if(max==numArr[i]) list.add(i+1);
         }
-
-        int[] answer = new int[arrList.size()];
-        for(int i=0;i<arrList.size();i++) {
-            answer[i]=arrList.get(i);
-        }
-
-        return answer;
+        
+        return list.stream().mapToInt(Integer::intValue).toArray();
     }
 }
