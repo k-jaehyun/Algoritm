@@ -2,12 +2,16 @@ import java.util.*;
 
 class Solution {
     public int solution(int k, int m, int[] score) {
-        int answer = 0;
+        int answer=0;
         
-        Arrays.sort(score);
+        List<Integer> list = new ArrayList<>();
+        for(int i:score) {
+            list.add(i);
+        }
         
-        for(int i=1;i<=score.length/m;i++) {
-            answer += score[score.length-(m*i)] *m;
+        Collections.sort(list, Comparator.reverseOrder());
+        for(int i=1;i*m<=list.size();i++) {
+            answer+= m*list.get(i*m-1);
         }
         
         return answer;
