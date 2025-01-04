@@ -3,24 +3,18 @@ class Solution {
         int answer = 0;
         
         for(int i=1;i<=number;i++) {
-            int tmp=0;
+            int cnt = 0;
             for(int j=1;j*j<=i;j++) {
-                if(i%j==0) {
-                    if(j*j==i) {
-                    tmp++;
-                     } else {
-                    tmp+=2;
-                     }
-
+                if(j*j==i) {
+                    cnt++;
+                } else if(i%j==0) {
+                    cnt+=2;
                 }
             }
-            
-            if(tmp>limit) {
-                answer+=power;
-            } else {
-                answer+=tmp;
+            if(cnt>limit) {
+                cnt = power;
             }
-            
+            answer+=cnt;
         }
         
         return answer;
