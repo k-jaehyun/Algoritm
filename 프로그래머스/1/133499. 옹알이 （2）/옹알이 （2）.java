@@ -2,18 +2,18 @@ class Solution {
     public int solution(String[] babbling) {
         int answer = 0;
         
-        loof1: for(int i=0;i<babbling.length;i++) {
+        a: for(int i=0;i<babbling.length;i++) {
             if(babbling[i].contains("ayaaya")||babbling[i].contains("yeye")||babbling[i].contains("woowoo")||babbling[i].contains("mama")) {
                 continue;
             }
-                babbling[i]=babbling[i].replace("aya", " ");
-                babbling[i]=babbling[i].replace("ye", " ");
-                babbling[i]=babbling[i].replace("woo", " ");
-                babbling[i]=babbling[i].replace("ma", " ");
-            String[] tmp = babbling[i].split("");
-            for(int j=0;j<tmp.length;j++) {
-                if(!tmp[j].equals(" ")) {
-                    continue loof1;
+            babbling[i]=babbling[i].replace("aya","1");
+            babbling[i]=babbling[i].replace("ye","1");
+            babbling[i]=babbling[i].replace("woo","1");
+            babbling[i]=babbling[i].replace("ma","1");
+            String[] strArr = babbling[i].split("");
+            for(String str:strArr) {
+                if(!str.equals("1")) {
+                    continue a;
                 }
             }
             answer++;
