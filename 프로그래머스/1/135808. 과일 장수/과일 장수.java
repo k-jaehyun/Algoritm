@@ -2,17 +2,20 @@ import java.util.*;
 
 class Solution {
     public int solution(int k, int m, int[] score) {
-        int answer=0;
+        int answer = 0;
         
-        List<Integer> list = new ArrayList<>();
-        for(int i:score) {
-            list.add(i);
+        Arrays.sort(score);
+        
+        for(int i=0;i<score.length/2;i++) {
+            int tmp = score[i];
+            score[i] = score[score.length-i-1];
+            score[score.length-i-1]=tmp;
         }
         
-        Collections.sort(list, Comparator.reverseOrder());
-        for(int i=1;i*m<=list.size();i++) {
-            answer+= m*list.get(i*m-1);
+        for(int i=0; i<(score.length/m)*m ; i+=m) {
+            answer+=score[i+m-1]*m;
         }
+        
         
         return answer;
     }
