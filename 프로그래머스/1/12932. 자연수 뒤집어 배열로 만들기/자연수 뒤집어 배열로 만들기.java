@@ -1,15 +1,14 @@
-
 class Solution {
     public int[] solution(long n) {
         
-        String str = Long.toString(n);
+        StringBuilder strBuilder = new StringBuilder();
+        strBuilder.append(n);
+        String str = strBuilder.toString();
         
-        String[] strArr = str.split("");
-
-        int[] answer = new int[strArr.length];
+        int[] answer = new int[str.length()];
         
-        for(int i=strArr.length;i>0;i--) {
-            answer[strArr.length-i] = Integer.parseInt(strArr[i-1]);
+        for(int i=0;i<str.length();i++) {
+            answer[i] = str.charAt(str.length()-i-1) -'0';
         }
         
         return answer;
